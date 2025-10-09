@@ -1,0 +1,363 @@
+<html>
+<head>
+	<title>CongYu-sama | Personality & Network Engineer Portfolio</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="images/favicon.jpg">
+	<style>
+		:root {
+			--bg-overlay: rgba(245, 255, 244, 0.7);
+			--card-bg: rgba(242, 255, 240, 0.6);
+			--accent-700: #2e7d32; /* darker green */
+			--accent-600: #388e3c;
+			--accent-500: #43a047;
+			--accent-300: #a5d6a7;
+			--text-dark: #14371a;
+			--text-medium: #2b6b35;
+			--muted: #6b8a6b;
+			--shadow: rgba(45, 120, 40, 0.18);
+		}
+		body {
+			margin: 0;
+			padding: 0;
+			font-family: 'Segoe UI', Arial, sans-serif;
+			background: url('images/bg-demo.jpg') no-repeat center center fixed;
+			background-size: cover;
+		}
+		.profile-container {
+			max-width: 500px;
+			margin: 40px auto 0 auto;
+			background: var(--card-bg);
+			border-radius: 24px;
+			box-shadow: 0 8px 32px 0 var(--shadow);
+			backdrop-filter: blur(7px);
+			-webkit-backdrop-filter: blur(7px);
+			padding: 32px 24px 24px 24px;
+			text-align: center;
+		}
+		.avatar {
+			width: 110px;
+			height: 110px;
+			border-radius: 50%;
+			border: 2px solid var(--accent-500);
+			box-shadow: 0 2px 8px var(--accent-600);
+			object-fit: cover;
+			margin-bottom: 16px;
+		}
+		.name {
+			font-size: 28px;
+			font-weight: bold;
+			color: var(--text-dark);
+			margin-bottom: 6px;
+		}
+		.desc {
+			color: var(--text-medium);
+			font-size: 16px;
+			margin-bottom: 18px;
+			text-align: justify;
+		}
+		.note {
+			color: var(--accent-600);
+			text-decoration: underline;
+			font-size: 15px;
+			margin-bottom: 10px;
+		}
+		.link-list {
+			display: flex;
+			flex-direction: column;
+			gap: 18px;
+			margin-top: 18px;
+		}
+		.link-btn {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			background: var(--bg-overlay);
+			border: 2px solid var(--accent-500);
+			border-radius: 30px;
+			padding: 10px 18px;
+			font-size: 18px;
+			color: var(--text-dark);
+			text-decoration: none;
+			transition: background 0.2s, box-shadow 0.2s, color 0.2s;
+			box-shadow: 0 2px 8px rgba(110, 170, 110, 0.15);
+			cursor: pointer;
+			position: relative;
+		}
+		.link-btn:hover {
+			background: var(--accent-300);
+			color: #013220; /* very dark green for contrast */
+			box-shadow: 0 4px 16px rgba(67,160,71,0.6);
+		}
+		.link-btn img {
+			width: 32px;
+			height: 32px;
+			border-radius: 50%;
+			margin-right: 12px;
+			border: 2px solid var(--accent-500);
+		}
+		.section-title {
+			font-size: 20px;
+			font-weight: bold;
+			color: var(--text-medium);
+			margin: 24px 0 10px 0;
+		}
+		.divider {
+			border: none;
+			border-top: 2px dashed var(--accent-500);
+			margin: 18px 0;
+		}
+		.hint {
+			color: var(--accent-600);
+			font-size: 14px;
+			margin-top: 18px;
+			font-style: italic;
+		}
+		.circle-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: 64px;
+			height: 64px;
+			border-radius: 50%;
+			background: transparent;
+			color: var(--accent-700);
+			font-size: 28px;
+			border: 2px solid var(--accent-500);
+			box-shadow: 0 6px 20px rgba(43,108,43,0.18);
+			margin: 0;
+			box-sizing: border-box;
+			padding: 0;
+			cursor: pointer;
+			transition: background 180ms ease, box-shadow 180ms ease, transform 160ms ease;
+			text-decoration: none;
+		}
+
+		.circle-btn > img { width: 36px; height: 36px; object-fit: contain; display: block; }
+
+		/* make sure both buttons in the social row have identical sizing */
+		.social-row .circle-btn { width: 64px; height: 64px; }
+		.social-row .circle-btn img { width: 36px; height: 36px; }
+
+		.social-row { display:flex; gap:12px; justify-content:center; align-items:center; margin: 12px 0; }
+		.circle-btn:hover {
+			background: var(--accent-600);
+			box-shadow: 0 4px 16px rgba(67,160,71,0.6);
+		}
+		.copyright {
+			text-align: center;
+			font-size: 14px;
+			color: var(--muted);
+			margin-top: 40px;
+		}
+
+		@media (max-width: 768px) {
+			.profile-container {
+				width: calc(100% - 48px);
+				margin: 24px auto 0 auto;
+				padding: 24px 18px 20px 18px;
+			}
+			.name { font-size: 24px; }
+			.desc { font-size: 15px; }
+			.link-btn { font-size: 17px; padding: 10px 16px; }
+			.circle-btn { width: 44px; height: 44px; font-size: 22px; }
+		}
+
+		@media (max-width: 480px) {
+			.profile-container {
+				width: calc(100% - 32px);
+				margin: 18px auto 0 auto;
+				padding: 18px 14px 18px 14px;
+				border-radius: 18px;
+			}
+			.avatar { width: 90px; height: 90px; }
+			.name { font-size: 20px; }
+			.desc { font-size: 14px; }
+			.section-title { font-size: 18px; }
+			.link-list { gap: 12px; }
+			.link-btn {
+				font-size: 16px;
+				padding: 12px 14px;
+				border-radius: 14px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.link-btn img { width: 36px; height: 36px; }
+			.circle-btn { width: 42px; height: 42px; font-size: 20px; }
+			.copyright { font-size: 13px; }
+			.desc { line-height: 1.45; }
+		}
+
+			/* Modal (Zalo QR) styles: animate via opacity/transform for smooth slow transitions */
+			.modal {
+				position: fixed;
+				inset: 0;
+				background: rgba(0,0,0,0.45);
+				backdrop-filter: blur(0px);
+				-webkit-backdrop-filter: blur(0px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+				z-index: 1200;
+				/* start hidden (but still renderable so transitions work) */
+				opacity: 0;
+				visibility: hidden;
+				pointer-events: none;
+				/* slow overlay transition for gentle blur/fade */
+				transition: opacity 900ms ease, backdrop-filter 900ms ease, background-color 760ms ease, visibility 900ms;
+			}
+			.modal.show {
+				opacity: 1;
+				visibility: visible;
+				pointer-events: auto;
+				backdrop-filter: blur(10px);
+				-webkit-backdrop-filter: blur(10px);
+				background: rgba(0,0,0,0.42);
+			}
+			.modal-content {
+				background: var(--card-bg);
+				padding: 20px;
+				position: relative;
+				border-radius: 12px;
+				max-width: 420px;
+				width: 100%;
+				box-shadow: 0 10px 40px rgba(20,60,20,0.18);
+				text-align: center;
+				/* start slightly down and invisible */
+				transform: translateY(14px) scale(0.98);
+				opacity: 0;
+				/* slower, smooth content animation */
+				transition: transform 760ms cubic-bezier(.2,.9,.2,1), opacity 700ms ease;
+			}
+			.modal.show .modal-content {
+				transform: translateY(0) scale(1);
+				opacity: 1;
+			}
+			.modal-content img { max-width: 260px; width: 80%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+			/* Prevent selecting or dragging the QR image */
+			.no-select {
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+			}
+		.modal-close {
+			position: absolute;
+			right: 18px;
+			top: 18px;
+			background: transparent;
+			border: none;
+			font-size: 22px;
+			cursor: pointer;
+			color: var(--text-dark);
+		}
+		@media (max-width: 480px) {
+			.modal-content { padding: 16px; max-width: 360px; }
+			.modal-content img { max-width: 220px; }
+			.modal-close { right: 14px; top: 12px; }
+		}
+
+		/* Force social icons to match global .circle-btn sizes at breakpoints */
+		@media (max-width: 768px) {
+			.social-row .circle-btn { width: 44px; height: 44px; border-width: 2px; }
+			.social-row .circle-btn img { width: 22px; height: 22px; }
+		}
+		@media (max-width: 480px) {
+			.social-row .circle-btn { width: 42px; height: 42px; border-width: 2px; }
+			.social-row .circle-btn img { width: 20px; height: 20px; }
+		}
+	</style>
+</head>
+<body>
+	<div class="profile-container">
+		<img src="images/avatar.jpg" alt="Avatar" class="avatar">
+		<div class="name">CongYu-sama | Personality & Network Engineer Portfolio</div>
+		<div class="desc">  <p>Mình là <b>Huy</b>, 20 tuổi, sinh viên trường <b>Đại học Sư phạm Kỹ thuật Vĩnh Long</b>, chuyên ngành 
+							<b>Mạng máy tính và Truyền thông dữ liệu</b>.</p>
+							<p>Mình có thế mạnh về <b>thiết kế – quản trị mạng</b> và lập trình với 
+							<b>JavaScript, HTML, CSS, Python, C#, C++ và Assembly x86</b>.</p>
+							Website này là không gian mình chia sẻ các 
+							<b>dự án web</b>, <b>mô phỏng mạng</b> và hành trình phát triển bản thân 
+							trên con đường trở thành <b>kỹ sư mạng chuyên nghiệp</b>.
+        </div>
+		<div class="note">Tương tác với các nút bên dưới để mở link đính kèm.</div>
+		<div class="section-title">DANH SÁCH DỰ ÁN CÁ NHÂN</div>
+        <hr class="divider">
+		<div class="link-list">
+			<a class="link-btn" href="https://drive.google.com/drive/folders/1ssCtPX-zVukJVZJZ4SnyezbABP3qdD7_?usp=drive_link">
+				<img src="images/icon-demo1.jpg" alt="icon">
+				DotNet | Dự án "Quản lý khách sạn với nhiều phân khu nghỉ dưỡng"
+			</a>
+			<a class="link-btn" href="https://drive.google.com/drive/folders/1aY6TDz0tyUCk-oIj20OD70fjzzlXp-vF?usp=drive_link">
+				<img src="images/icon-demo2.jpg" alt="icon">
+				Matlab | Đồ án thuyết minh "Phân ngưỡng ảnh trong xử lý ảnh số"
+			</a>
+			<a class="link-btn" href="https://drive.google.com/drive/folders/1tJ_ehI7BBO2sEjrfaRRU91kfYWCaJcLR?usp=drive_link">
+				<img src="images/icon-demo3.jpg" alt="icon">
+				Packet Tracer | Thiết kế, mô phỏng mạng LAN/WAN cho doanh nghiệp vừa và nhỏ
+			</a>
+			<a class="link-btn" href="https://drive.google.com/drive/folders/1eoGviUV4mltICxd5S-1avXlZmF85L7Ye?usp=drive_link">
+				<img src="images/icon-demo4.jpg" alt="icon">
+				HTML/CSS/JavaScript | Dự án Website bán Pizza online "Pizza Shop"
+			</a>
+		</div>
+        <hr class="divider">
+		<div class="social-row">
+			<a class="circle-btn" href="https://www.facebook.com/hhuy1109" target="_blank" title="Facebook">
+				<img src="images/fb-icon.png" alt="Facebook">
+			</a>
+			<button class="circle-btn" id="zaloBtn" title="Zalo" aria-haspopup="dialog" aria-controls="zaloModal">
+				<img src="images/zalo-icon.png" alt="Zalo">
+			</button>
+		</div>
+		<div class="hint"><b>
+            Nếu gặp lỗi link, vui lòng nhắn tin qua Facebook hoặc qua Zalo ở trên để mình sửa lỗi nhé!
+        </b></div>
+		<footer class="copyright">
+			<p>© 2025 CongYu-sama | Personal Portfolio</p>
+			<p>contact.congyu@gmail.com</a></p>
+		</footer>
+
+		<!-- Zalo QR Modal (hidden by default) -->
+		<div id="zaloModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="zaloModalTitle">
+			<div class="modal-content">
+				<button class="modal-close" aria-label="Close QR">×</button>
+				<h3 id="zaloModalTitle" style="margin-top:0; color:var(--text-dark);">Zalo QR</h3>
+				<p style="color:var(--text-medium); margin:8px 0 12px 0;"><u>Quét mã QR để liên hệ qua Zalo</u></p>
+				<img src="images/zalo-qr.jpg" alt="Zalo QR code" class="no-select" draggable="false" />
+			</div>
+		</div>
+
+		<script>
+		// Modal logic for Zalo QR
+		document.addEventListener('DOMContentLoaded', function(){
+			var zaloBtn = document.getElementById('zaloBtn');
+			var modal = document.getElementById('zaloModal');
+			var closeBtn = modal && modal.querySelector('.modal-close');
+			function openModal(){
+				if(!modal) return;
+				modal.classList.add('show');
+				modal.setAttribute('aria-hidden','false');
+				document.body.style.overflow = 'hidden';
+			}
+			function closeModal(){
+				if(!modal) return;
+				modal.classList.remove('show');
+				modal.setAttribute('aria-hidden','true');
+				document.body.style.overflow = '';
+			}
+			if(zaloBtn) zaloBtn.addEventListener('click', openModal);
+			if(closeBtn) closeBtn.addEventListener('click', closeModal);
+			if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+			document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal(); });
+			// prevent selecting or dragging the QR image
+			var qrImg = modal && modal.querySelector('.modal-content img');
+			if(qrImg){
+				qrImg.addEventListener('dragstart', function(e){ e.preventDefault(); });
+				qrImg.addEventListener('selectstart', function(e){ e.preventDefault(); });
+			}
+		});
+		</script>
+	</div>
+</body>
+</html>
