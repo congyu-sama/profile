@@ -1,361 +1,229 @@
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
-	<title>CongYu-sama | Personality & Network Engineer Portfolio</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/favicon.jpg">
-	<style>
-		:root {
-			--bg-overlay: rgba(245, 255, 244, 0.7);
-			--card-bg: rgba(242, 255, 240, 0.6);
-			--accent-700: #2e7d32; /* darker green */
-			--accent-600: #388e3c;
-			--accent-500: #43a047;
-			--accent-300: #a5d6a7;
-			--text-dark: #14371a;
-			--text-medium: #2b6b35;
-			--muted: #6b8a6b;
-			--shadow: rgba(45, 120, 40, 0.18);
-		}
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: 'Segoe UI', Arial, sans-serif;
-			background: url('images/bg-demo.jpg') no-repeat center center fixed;
-			background-size: cover;
-		}
-		.profile-container {
-			max-width: 500px;
-			margin: 40px auto 0 auto;
-			background: var(--card-bg);
-			border-radius: 24px;
-			box-shadow: 0 8px 32px 0 var(--shadow);
-			backdrop-filter: blur(7px);
-			-webkit-backdrop-filter: blur(7px);
-			padding: 32px 24px 24px 24px;
-			text-align: center;
-		}
-		.avatar {
-			width: 110px;
-			height: 110px;
-			border-radius: 50%;
-			border: 2px solid var(--accent-500);
-			box-shadow: 0 2px 8px var(--accent-600);
-			object-fit: cover;
-			margin-bottom: 16px;
-		}
-		.name {
-			font-size: 28px;
-			font-weight: bold;
-			color: var(--text-dark);
-			margin-bottom: 6px;
-		}
-		.desc {
-			color: var(--text-medium);
-			font-size: 16px;
-			margin-bottom: 18px;
-			text-align: justify;
-		}
-		.note {
-			color: var(--accent-600);
-			text-decoration: underline;
-			font-size: 15px;
-			margin-bottom: 10px;
-		}
-		.link-list {
-			display: flex;
-			flex-direction: column;
-			gap: 18px;
-			margin-top: 18px;
-		}
-		.link-btn {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-			background: var(--bg-overlay);
-			border: 2px solid var(--accent-500);
-			border-radius: 30px;
-			padding: 10px 18px;
-			font-size: 18px;
-			color: var(--text-dark);
-			text-decoration: none;
-			transition: background 0.2s, box-shadow 0.2s, color 0.2s;
-			box-shadow: 0 2px 8px rgba(110, 170, 110, 0.15);
-			cursor: pointer;
-			position: relative;
-		}
-		.link-btn:hover {
-			background: var(--accent-300);
-			color: #013220; /* very dark green for contrast */
-			box-shadow: 0 4px 16px rgba(67,160,71,0.6);
-		}
-		.link-btn img {
-			width: 32px;
-			height: 32px;
-			border-radius: 50%;
-			margin-right: 12px;
-			border: 2px solid var(--accent-500);
-		}
-		.section-title {
-			font-size: 20px;
-			font-weight: bold;
-			color: var(--text-medium);
-			margin: 24px 0 10px 0;
-		}
-		.divider {
-			border: none;
-			border-top: 2px dashed var(--accent-500);
-			margin: 18px 0;
-		}
-		.hint {
-			color: var(--accent-600);
-			font-size: 14px;
-			margin-top: 18px;
-			font-style: italic;
-		}
-		.circle-btn {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			width: 64px;
-			height: 64px;
-			border-radius: 50%;
-			background: transparent;
-			color: var(--accent-700);
-			font-size: 28px;
-			border: 2px solid var(--accent-500);
-			box-shadow: 0 6px 20px rgba(43,108,43,0.18);
-			margin: 0;
-			box-sizing: border-box;
-			padding: 0;
-			cursor: pointer;
-			transition: background 180ms ease, box-shadow 180ms ease, transform 160ms ease;
-			text-decoration: none;
-		}
-
-		.circle-btn > img { width: 36px; height: 36px; object-fit: contain; display: block; }
-
-		.social-row .circle-btn { width: 64px; height: 64px; }
-		.social-row .circle-btn img { width: 36px; height: 36px; }
-
-		.social-row { display:flex; gap:12px; justify-content:center; align-items:center; margin: 12px 0; }
-		.circle-btn:hover {
-			background: var(--accent-600);
-			box-shadow: 0 4px 16px rgba(67,160,71,0.6);
-		}
-		.copyright {
-			text-align: center;
-			font-size: 14px;
-			color: var(--muted);
-			margin-top: 40px;
-		}
-
-		@media (max-width: 768px) {
-			.profile-container {
-				width: calc(100% - 48px);
-				margin: 24px auto 0 auto;
-				padding: 24px 18px 20px 18px;
-			}
-			.name { font-size: 24px; }
-			.desc { font-size: 15px; }
-			.link-btn { font-size: 17px; padding: 10px 16px; }
-			.circle-btn { width: 44px; height: 44px; font-size: 22px; }
-		}
-
-		@media (max-width: 480px) {
-			.profile-container {
-				width: calc(100% - 32px);
-				margin: 18px auto 0 auto;
-				padding: 18px 14px 18px 14px;
-				border-radius: 18px;
-			}
-			.avatar { width: 90px; height: 90px; }
-			.name { font-size: 20px; }
-			.desc { font-size: 14px; }
-			.section-title { font-size: 18px; }
-			.link-list { gap: 12px; }
-			.link-btn {
-				font-size: 16px;
-				padding: 12px 14px;
-				border-radius: 14px;
-				width: 100%;
-				box-sizing: border-box;
-			}
-			.link-btn img { width: 36px; height: 36px; }
-			.circle-btn { width: 42px; height: 42px; font-size: 20px; }
-			.copyright { font-size: 13px; }
-			.desc { line-height: 1.45; }
-		}
-
-			/* Modal (Zalo QR)*/
-			.modal {
-				position: fixed;
-				inset: 0;
-				background: rgba(0,0,0,0.45);
-				backdrop-filter: blur(0px);
-				-webkit-backdrop-filter: blur(0px);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: 20px;
-				z-index: 1200;
-				/* start hidden (but still renderable so transitions work) */
-				opacity: 0;
-				visibility: hidden;
-				pointer-events: none;
-				/* slow overlay transition for gentle blur/fade */
-				transition: opacity 900ms ease, backdrop-filter 900ms ease, background-color 760ms ease, visibility 900ms;
-			}
-			.modal.show {
-				opacity: 1;
-				visibility: visible;
-				pointer-events: auto;
-				backdrop-filter: blur(10px);
-				-webkit-backdrop-filter: blur(10px);
-				background: rgba(0,0,0,0.42);
-			}
-			.modal-content {
-				background: var(--card-bg);
-				padding: 20px;
-				position: relative;
-				border-radius: 12px;
-				max-width: 420px;
-				width: 100%;
-				box-shadow: 0 10px 40px rgba(20,60,20,0.18);
-				text-align: center;
-				/* start slightly down and invisible */
-				transform: translateY(14px) scale(0.98);
-				opacity: 0;
-				/* slower, smooth content animation */
-				transition: transform 760ms cubic-bezier(.2,.9,.2,1), opacity 700ms ease;
-			}
-			.modal.show .modal-content {
-				transform: translateY(0) scale(1);
-				opacity: 1;
-			}
-			.modal-content img { max-width: 260px; width: 80%; height: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
-			/* Prevent selecting or dragging the QR image */
-			.no-select {
-				user-select: none;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-			}
-		.modal-close {
-			position: absolute;
-			right: 18px;
-			top: 18px;
-			background: transparent;
-			border: none;
-			font-size: 22px;
-			cursor: pointer;
-			color: var(--text-dark);
-		}
-		@media (max-width: 480px) {
-			.modal-content { padding: 16px; max-width: 360px; }
-			.modal-content img { max-width: 220px; }
-			.modal-close { right: 14px; top: 12px; }
-		}
-
-		/* Force social icons to match global .circle-btn sizes at breakpoints */
-		@media (max-width: 768px) {
-			.social-row .circle-btn { width: 44px; height: 44px; border-width: 2px; }
-			.social-row .circle-btn img { width: 22px; height: 22px; }
-		}
-		@media (max-width: 480px) {
-			.social-row .circle-btn { width: 42px; height: 42px; border-width: 2px; }
-			.social-row .circle-btn img { width: 20px; height: 20px; }
-		}
-	</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bài tập Lập trình mạng</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#222;font-family:Arial,sans-serif}
+body{font-size:12px}
+header{height:38px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 10px;gap:8px}
+h1{font-size:14px;font-weight:600;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:8px}
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+button{background:#fff;border:1px solid #ccc;border-radius:3px;padding:4px 7px;font-size:11px;cursor:pointer}
+button:hover{background:#f5f5f5}
+.card{border:1px solid #ddd;margin:6px 0;background:#fff}
+.card-head{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 7px;border-bottom:1px solid #e5e5e5}
+.card-head strong{font-size:12px}
+pre{margin:0;padding:7px;white-space:pre;overflow:auto;font:11px/1.35 Consolas,"Courier New",monospace;background:#fff}
+.note{color:#777;font-size:10px;margin:4px 0 8px}
+.status{position:fixed;right:8px;bottom:8px;background:#fff;border:1px solid #ccc;padding:4px 7px;font-size:10px;display:none}
+@media(max-width:700px){.wrap{padding:5px}pre{font-size:10px}}
+</style>
 </head>
 <body>
-	<div class="profile-container">
-		<img src="images/avatar.jpg" alt="Avatar" class="avatar">
-		<div class="name">CongYu-sama | Personality & Network Engineer Portfolio</div>
-		<div class="desc">  Website này là không gian chia sẻ các 
-							<b>dự án web</b>, <b>lập trình</b>, <b>mô phỏng mạng</b>.
-        </div>
-		<div class="note">Tương tác với các nút bên dưới để mở link đính kèm.</div>
-		<div class="section-title">DANH SÁCH DỰ ÁN CÁ NHÂN</div>
-        <hr class="divider">
-		<div class="link-list">
-			<a class="link-btn" href="https://drive.google.com/drive/folders/1Pujd9r3d-SniDLQyB7-uYC3-EqhU_5Uj?usp=sharing">
-				<img src="images/icon-demo4.jpg" alt="icon">
-				GG Drive | Tài liệu học tập liên quan
-			</a>
-			<a class="link-btn" href="https://drive.google.com/drive/folders/1ssCtPX-zVukJVZJZ4SnyezbABP3qdD7_?usp=drive_link">
-				<img src="images/icon-demo1.jpg" alt="icon">
-				DotNet | Dự án "Quản lý khách sạn với nhiều phân khu nghỉ dưỡng"
-			</a>
-			<a class="link-btn" href="https://drive.google.com/drive/folders/1aY6TDz0tyUCk-oIj20OD70fjzzlXp-vF?usp=drive_link">
-				<img src="images/icon-demo2.jpg" alt="icon">
-				Matlab | Đồ án thuyết minh "Phân ngưỡng ảnh trong xử lý ảnh số"
-			</a>
-			<a class="link-btn" href="https://drive.google.com/drive/folders/1tJ_ehI7BBO2sEjrfaRRU91kfYWCaJcLR?usp=drive_link">
-				<img src="images/icon-demo3.jpg" alt="icon">
-				Packet Tracer | Thiết kế, mô phỏng mạng LAN/WAN cho doanh nghiệp vừa và nhỏ
-			</a>
-			<a class="link-btn" href="https://drive.google.com/drive/folders/1eoGviUV4mltICxd5S-1avXlZmF85L7Ye?usp=drive_link">
-				<img src="images/icon-demo4.jpg" alt="icon">
-				HTML/CSS/JavaScript | Dự án Website bán Pizza online "Pizza Shop"
-			</a>
-		</div>
-        <hr class="divider">
-		<div class="social-row">
-			<a class="circle-btn" href="https://www.facebook.com/hhuy1109" target="_blank" title="Facebook">
-				<img src="images/fb-icon.png" alt="Facebook">
-			</a>
-			<button class="circle-btn" id="zaloBtn" title="Zalo" aria-haspopup="dialog" aria-controls="zaloModal">
-				<img src="images/zalo-icon.png" alt="Zalo">
-			</button>
-		</div>
-		<div class="hint"><b>
-            Nếu gặp lỗi link, vui lòng nhắn tin qua Facebook hoặc qua Zalo ở trên để mình sửa lỗi nhé!
-        </b></div>
-		<footer class="copyright">
-			<p>© 2025 CongYu-sama | Personal Portfolio</p>
-			<p>contact.congyu@gmail.com</a></p>
-		</footer>
+<header><h1>Bài tập Lập trình mạng</h1></header>
+<div class="wrap">
+  <div class="toolbar">
+    <button onclick="copyAll()">Sao chép tất cả</button>
+    <button onclick="expandAll()">Mở tất cả</button>
+    <button onclick="collapseAll()">Thu gọn tất cả</button>
+  </div>
+  <div class="note">Giao diện tối giản, nền trắng. Mỗi bài có nút sao chép riêng.</div>
 
-		<!-- Zalo QR Modal (hidden by default) -->
-		<div id="zaloModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="zaloModalTitle">
-			<div class="modal-content">
-				<button class="modal-close" aria-label="Close QR">×</button>
-				<h3 id="zaloModalTitle" style="margin-top:0; color:var(--text-dark);">Zalo QR</h3>
-				<p style="color:var(--text-medium); margin:8px 0 12px 0;"><u>Quét mã QR để liên hệ qua Zalo</u></p>
-				<img src="images/zalo-qr.jpg" alt="Zalo QR code" class="no-select" draggable="false" />
-			</div>
-		</div>
+  <section class="card">
+    <div class="card-head"><strong>1. UDP Client — udpclient.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
 
-		<script>
-		// Modal logic for Zalo QR
-		document.addEventListener('DOMContentLoaded', function(){
-			var zaloBtn = document.getElementById('zaloBtn');
-			var modal = document.getElementById('zaloModal');
-			var closeBtn = modal && modal.querySelector('.modal-close');
-			function openModal(){
-				if(!modal) return;
-				modal.classList.add('show');
-				modal.setAttribute('aria-hidden','false');
-				document.body.style.overflow = 'hidden';
-			}
-			function closeModal(){
-				if(!modal) return;
-				modal.classList.remove('show');
-				modal.setAttribute('aria-hidden','true');
-				document.body.style.overflow = '';
-			}
-			if(zaloBtn) zaloBtn.addEventListener('click', openModal);
-			if(closeBtn) closeBtn.addEventListener('click', closeModal);
-			if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
-			document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal && modal.classList.contains('show')) closeModal(); });
-			// prevent selecting or dragging the QR image
-			var qrImg = modal && modal.querySelector('.modal-content img');
-			if(qrImg){
-				qrImg.addEventListener('dragstart', function(e){ e.preventDefault(); });
-				qrImg.addEventListener('selectstart', function(e){ e.preventDefault(); });
-			}
-		});
-		</script>
-	</div>
+public class udpclient {
+    public static void main(String [] args){
+        try{
+            DatagramSocket ds=new DatagramSocket();
+            InetAddress server=InetAddress.getByName("127.0.0.1");
+            while(true){
+                InputStreamReader isr=new InputStreamReader(System.in);
+                BufferedReader br=new BufferedReader(isr);
+                System.out.print("Nhap chuoi: ");
+                String s=br.readLine();
+                if (s.equalsIgnoreCase("exit")) break;
+                byte[] data=s.getBytes();
+                DatagramPacket dp=new DatagramPacket(data,data.length,server,7);
+                ds.send(dp);
+                byte[] buffer=new byte[256];
+                DatagramPacket incoming=new DatagramPacket(buffer,buffer.length);
+                ds.receive(incoming);
+                System.out.println("Server: "+new String(incoming.getData(),0,incoming.getLength()));
+            }
+        }catch(IOException e){
+            System.out.println(""+e);
+        }
+    }
+}</pre>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><strong>2. UDP Server — udpserver.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
+
+public class udpserver {
+    public static void main (String[] args){
+        try{
+            DatagramSocket ds=new DatagramSocket(7);
+            System.out.println("Server cho 7...");
+            byte[] buffer=new byte[256];
+            while(true){
+                DatagramPacket in=new DatagramPacket(buffer,buffer.length);
+                ds.receive(in);
+                String str=new String(in.getData(),0,in.getLength());
+                System.out.println("Client: "+str);
+                str=str.toUpperCase();
+                byte[] data=str.getBytes();
+                DatagramPacket out=new DatagramPacket(data,in.getLength(),in.getAddress(),in.getPort());
+                ds.send(out);
+            }
+        }catch(IOException e){
+            System.out.println(""+e);
+        }
+    }
+}</pre>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><strong>3. TCP Client — tcpclient.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class tcpclient {
+    public static void main(String[] args){
+        try{
+            Socket socket=new Socket("localhost",5000);
+            DataInputStream in=new DataInputStream(socket.getInputStream());
+            DataOutputStream out=new DataOutputStream(socket.getOutputStream());
+            System.out.println("Nhap n=");
+            Scanner sc=new Scanner(System.in);
+            int n=sc.nextInt();
+            out.writeInt(n); out.flush();
+            int tong=in.readInt();
+            System.out.println("Tong "+tong);
+        }catch(IOException e){
+            System.out.println(""+e);
+        }
+    }
+}</pre>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><strong>4. TCP Server — tcpserver.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
+
+public class tcpserver {
+    public static void main(String [] args)throws Exception{
+        ServerSocket ss=new ServerSocket(5000);
+        System.out.println("Server cho 5000...");
+        while(true){
+            Socket cs=ss.accept();
+            DataInputStream in=new DataInputStream(cs.getInputStream());
+            DataOutputStream out=new DataOutputStream(cs.getOutputStream());
+            int n=in.readInt();
+            System.out.println("Client: "+n);
+            int tong=0;
+            for (int i=1; i&lt;=n; i++){
+                tong+=i;
+            }
+            out.writeInt(tong); out.flush();
+        }
+    }
+}</pre>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><strong>5. UDP Multicast Client — udpMulticastClient.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
+
+public class udpMulticastClient {
+    public static void main(String[] args) {
+        try {
+            DatagramSocket ds = new DatagramSocket();
+            InetAddress multicastAddress = InetAddress.getByName("230.0.0.1");
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                System.out.print("Nhap chuoi: ");
+                String s = br.readLine();
+                if (s.equalsIgnoreCase("exit")) {break;}
+                byte[] data = s.getBytes();
+                DatagramPacket dp = new DatagramPacket(data,data.length,multicastAddress,9013);
+                ds.send(dp);
+                byte[] buffer = new byte[256];
+                DatagramPacket incoming = new DatagramPacket(buffer,buffer.length);
+                ds.receive(incoming);
+                String result = new String(incoming.getData(),0,incoming.getLength());
+                System.out.println("Server: " + result);
+            }
+            ds.close();
+        } catch (IOException e) {
+            System.out.println("Loi: " + e);
+        }
+    }
+}</pre>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><strong>6. UDP Multicast Server — udpMulticastServer.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
+    <pre>import java.io.*;
+import java.net.*;
+
+public class udpMulticastServer {
+    public static void main(String[] args) {
+        try {
+            MulticastSocket ds = new MulticastSocket(9013);
+            InetAddress address = InetAddress.getByName("230.0.0.1");
+            ds.joinGroup(address);
+            System.out.println("Server cho 7...");
+            while (true) {
+                byte[] buffer = new byte[256];
+                DatagramPacket in = new DatagramPacket(buffer,buffer.length);
+                ds.receive(in);
+                String str = new String(in.getData(),0,in.getLength());
+                System.out.println("Client: " + str);
+                str = str.toUpperCase();
+                byte[] data = str.getBytes();
+                DatagramPacket out = new DatagramPacket(data,data.length,in.getAddress(),in.getPort());
+                ds.send(out);
+            }
+        } catch (IOException e) {
+            System.out.println("Loi: " + e);
+        }
+    }
+}</pre>
+  </section>
+</div>
+<div id="status" class="status">Đã sao chép</div>
+
+<script>
+function copyText(text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const s=document.getElementById('status');
+    s.style.display='block';
+    setTimeout(()=>s.style.display='none',900);
+  });
+}
+function copyCode(btn){
+  const code=btn.closest('.card').querySelector('pre').innerText;
+  copyText(code);
+}
+function copyAll(){
+  const codes=[...document.querySelectorAll('pre')].map(x=>x.innerText).join('\\n\\n');
+  copyText(codes);
+}
+function expandAll(){document.querySelectorAll('pre').forEach(x=>x.style.display='block')}
+function collapseAll(){document.querySelectorAll('pre').forEach(x=>x.style.display='none')}
+</script>
 </body>
 </html>
