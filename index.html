@@ -3,29 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title></title>
+<title>Bài tập Lập trình mạng</title>
 <style>
+.collapsed pre{display:none}
+
 *{box-sizing:border-box}
-html,body{margin:0;background:#fff;color:#222;font-family:Arial,sans-serif}
-body{font-size:12px}
-header{height:38px;border-bottom:1px solid #ddd;display:flex;align-items:center;padding:0 10px;gap:8px}
-h1{font-size:14px;font-weight:600;margin:0}
-.wrap{max-width:900px;margin:0 auto;padding:8px}
-.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
-button{background:#fff;border:1px solid #ccc;border-radius:3px;padding:4px 7px;font-size:11px;cursor:pointer}
-button:hover{background:#f5f5f5}
-.card{border:1px solid #ddd;margin:6px 0;background:#fff}
-.card-head{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 7px;border-bottom:1px solid #e5e5e5}
-.card-head strong{font-size:12px}
-pre{margin:0;padding:7px;white-space:pre;overflow:auto;font:11px/1.35 Consolas,"Courier New",monospace;background:#fff}
-.note{color:#777;font-size:10px;margin:4px 0 8px}
-.status{position:fixed;right:8px;bottom:8px;background:#fff;border:1px solid #ccc;padding:4px 7px;font-size:10px;display:none}
-@media(max-width:700px){.wrap{padding:5px}pre{font-size:10px}}
+html,body{margin:0;background:#fff;color:#dedede;font-family:Arial,sans-serif}
+body{font-size:9px;color:#d0d0d0}
+header{height:0;overflow:hidden}
+h1{display:none}
+.wrap{max-width:760px;margin:0 auto;padding:4px}
+.toolbar{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:4px}
+button{background:#fff;border:1px solid #efefef;border-radius:3px;padding:2px 4px;font-size:8px;cursor:pointer;color:#d0d0d0}
+button:hover{background:#fafafa}
+.card{border:1px solid #f0f0f0;margin:2px 0;background:#fff}
+.card-head{height:19px;display:flex;align-items:center;justify-content:space-between;padding:0 4px;border-bottom:1px solid #f0f0f0}
+.card-head strong{font-size:9px;font-weight:400;color:#d0d0d0}
+pre{margin:0;padding:4px;white-space:pre;overflow:auto;font:8px/1.2 Consolas,"Courier New",monospace;background:#fff;color:#d0d0d0}
+.note{display:none}
+.status{position:fixed;right:5px;bottom:5px;background:#fff;border:1px solid #f4f4f4;padding:2px 4px;font-size:8px;display:none}
+@media(max-width:700px){.wrap{padding:2px}pre{font-size:7px}.card-head{height:18px}}
 </style>
 </head>
 <body>
-<header><h1>Bài tập Lập trình mạng</h1></header>
 <div class="wrap">
+  <script>document.documentElement.classList.add("collapsed");</script>
   <div class="toolbar">
     <button onclick="copyAll()">Sao chép tất cả</button>
     <button onclick="expandAll()">Mở tất cả</button>
