@@ -228,7 +228,7 @@ public class udpMulticastServer {
 <div id="chat-btn" onclick="toggleChat()" title="Hỏi AI">💬</div>
 <div id="chat-panel">
   <div id="chat-head">
-    <span>UIA · AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N</span>
+    <span>UIA · AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N-MA</span>
     <span>
       <button onclick="showKeyInput()" title="Đổi API key" style="margin-right:2px">🔑</button>
       <button onclick="toggleChat()">✕</button>
@@ -274,11 +274,14 @@ function showKeyInput(){
 }
 
 function submitKey(){
-  const k=(document.getElementById('key-inp')||{}).value||'';
-  if(!k.trim()) return;
-  saveKey(k.trim());
+  let k=(document.getElementById('key-inp')||{}).value||'';
+  k=k.trim().replace(/^['"]|['"]$/g,'').replace(/[\\r\\n\\t]/g,'');
+
+  if(!k) return;
+
+  saveKey(k);
   document.getElementById('chat-msgs').innerHTML='';
-  addMsg('a','✓ Key đã lưu! Hỏi về UDP, TCP, Socket, Multicast Java nhé.');
+  addMsg('a','Key đã lưu. Hỏi về UDP, TCP, Socket, Multicast Java.');
   document.getElementById('chat-inp').focus();
 }
 
@@ -295,37 +298,69 @@ function addMsg(role, text, cls){
 async function sendChat(){
   if(thinking) return;
   if(!getKey()){ showKeyInput(); return; }
+
   const inp = document.getElementById('chat-inp');
   const msg = inp.value.trim();
   if(!msg) return;
-  inp.value='';
+
+  inp.value = '';
   addMsg('u', msg);
   hist.push({role:'user', parts:[{text:msg}]});
-  thinking=true;
-  const w=addMsg('a','đang trả lời...','typing');
+  thinking = true;
+
+  const w = addMsg('a','đang trả lời...','typing');
+
   try{
-    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${getKey()}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        systemInstruction:{parts:[{text:SYS}]},
-        contents:hist,
-        generationConfig:{maxOutputTokens:4096,temperature:0.3}
-      })
-    });
-    const data=await r.json();
-    if(data.error) throw new Error(data.error.message);
-    const t=data.candidates[0].content.parts[0].text;
-    w.textContent=t;
+    const apiKey = getKey().trim().replace(/^['"]|['"]$/g,'');
+
+    const r = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent',
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'x-goog-api-key':apiKey
+        },
+        body:JSON.stringify({
+          systemInstruction:{
+            parts:[{text:SYS}]
+          },
+          contents:hist,
+          generationConfig:{
+            maxOutputTokens:4096,
+            temperature:0.3
+          }
+        })
+      }
+    );
+
+    const data = await r.json();
+
+    if(!r.ok){
+      throw new Error(
+        data?.error?.message ||
+        ('HTTP ' + r.status)
+      );
+    }
+
+    const t = data?.candidates?.[0]?.content?.parts
+      ?.map(x => x.text || '')
+      .join('') || 'Không nhận được nội dung trả lời.';
+
+    w.textContent = t;
     w.classList.remove('typing');
     hist.push({role:'model',parts:[{text:t}]});
+
   }catch(e){
-    w.textContent='Lỗi: '+e.message+'\n(Kiểm tra API key — nhấn 🔑 để đổi key)';
+    w.textContent =
+      'Lỗi: ' + (e.message || 'Không thể kết nối Gemini.') +
+      '\n(Nhấn 🔑 để kiểm tra hoặc đổi API key)';
     w.classList.remove('typing');
     hist.pop();
   }
-  thinking=false;
-  document.getElementById('chat-msgs').scrollTop=9999;
+
+  thinking = false;
+  document.getElementById('chat-msgs').scrollTop = 9999;
 }
 
 function copyText(text){
