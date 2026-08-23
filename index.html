@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bài tập Lập trình mạng</title>
+<title>#utf8:AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N-MA</title>
 <style>
 .collapsed pre{display:none}
 
@@ -23,6 +23,22 @@ pre{margin:0;padding:4px;white-space:pre;overflow:auto;font:8px/1.2 Consolas,"Co
 .note{display:none}
 .status{position:fixed;right:5px;bottom:5px;background:#fff;border:1px solid #f4f4f4;padding:2px 4px;font-size:8px;display:none}
 @media(max-width:700px){.wrap{padding:2px}pre{font-size:7px}.card-head{height:18px}}
+
+/* Chat widget */
+#chat-btn{position:fixed;right:10px;bottom:10px;width:26px;height:26px;background:#fff;border:1px solid #e8e8e8;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;z-index:200}
+#chat-panel{position:fixed;right:10px;bottom:42px;width:260px;height:420px;background:#fff;border:1px solid #e8e8e8;display:none;flex-direction:column;z-index:200}
+#chat-head{height:22px;display:flex;align-items:center;justify-content:space-between;padding:0 6px;border-bottom:1px solid #efefef;color:#d0d0d0;font-size:8px}
+#chat-head button{border:none;background:none;cursor:pointer;color:#d0d0d0;font-size:9px;padding:0;line-height:1}
+#chat-msgs{flex:1;overflow-y:auto;padding:4px;display:flex;flex-direction:column;gap:3px}
+.cmsg{padding:3px 5px;font-size:8px;line-height:1.4;max-width:88%;word-break:break-word;color:#c8c8c8;border:1px solid #f0f0f0;border-radius:2px;white-space:pre-wrap}
+.cmsg.u{align-self:flex-end;background:#fafafa}
+.cmsg.a{align-self:flex-start}
+.cmsg.typing{color:#e0e0e0;font-style:italic}
+#chat-inp-row{display:flex;border-top:1px solid #efefef;height:22px}
+#chat-inp{flex:1;border:none;outline:none;padding:0 5px;font-size:8px;color:#c8c8c8;font-family:Arial,sans-serif;background:#fff}
+#chat-inp::placeholder{color:#e4e4e4}
+#chat-send{border:none;border-left:1px solid #efefef;background:#fff;padding:0 7px;cursor:pointer;font-size:8px;color:#d0d0d0}
+#chat-send:hover{background:#fafafa}
 </style>
 </head>
 <body>
@@ -208,7 +224,110 @@ public class udpMulticastServer {
 </div>
 <div id="status" class="status">Đã sao chép</div>
 
+<!-- Chat Widget -->
+<div id="chat-btn" onclick="toggleChat()" title="Hỏi AI">💬</div>
+<div id="chat-panel">
+  <div id="chat-head">
+    <span>UIA · AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N</span>
+    <span>
+      <button onclick="showKeyInput()" title="Đổi API key" style="margin-right:2px">🔑</button>
+      <button onclick="toggleChat()">✕</button>
+    </span>
+  </div>
+  <div id="chat-msgs"></div>
+  <div id="chat-inp-row">
+    <input id="chat-inp" placeholder="Hỏi về UDP, TCP, Socket..." onkeydown="if(event.key==='Enter'&&!event.shiftKey)sendChat()">
+    <button id="chat-send" onclick="sendChat()">↑</button>
+  </div>
+</div>
+
 <script>
+const SYS = 'Bạn là chuyên gia lập trình mạng Java (UDP, TCP, Socket, DatagramSocket, ServerSocket, MulticastSocket). QUY TẮC BẮT BUỘC: 1) Trả lời ngắn gọn, đi thẳng vào trọng tâm, KHÔNG lời chào, KHÔNG lời dẫn, KHÔNG tổng kết cuối câu, KHÔNG ghi chú thừa. 2) Khi liên quan tới client-server, LUÔN đưa đầy đủ code CẢ Client VÀ Server, không cắt bớt, không viết "...". 3) Chỉ giải thích cực ngắn (1 dòng) ngay dưới mỗi đoạn code nếu cần, không giải thích dài dòng. 4) Không lặp lại câu hỏi của người dùng. 5) Không dùng emoji, không dùng câu văn hoa mỹ.';
+let hist = [];
+let chatOpen = false;
+let thinking = false;
+
+function getKey(){ return localStorage.getItem('gmk')||''; }
+function saveKey(k){ localStorage.setItem('gmk',k); }
+
+function toggleChat(){
+  chatOpen = !chatOpen;
+  const p = document.getElementById('chat-panel');
+  p.style.display = chatOpen ? 'flex' : 'none';
+  if(chatOpen){
+    if(!getKey()){ showKeyInput(); return; }
+    document.getElementById('chat-inp').focus();
+    if(hist.length===0) addMsg('a','Xin chào! Hỏi về UDP, TCP, Socket, Multicast Java nhé.');
+  }
+}
+
+function showKeyInput(){
+  const c = document.getElementById('chat-msgs');
+  c.innerHTML='';
+  const d = document.createElement('div');
+  d.style.cssText='padding:8px;font-size:8px;color:#c8c8c8;line-height:1.8';
+  d.innerHTML=`Cần Gemini API key (miễn phí):<br>
+    <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#b8b8b8">→ aistudio.google.com</a><br><br>
+    <input id="key-inp" style="width:100%;border:1px solid #efefef;padding:3px 4px;font-size:8px;outline:none;color:#c8c8c8;font-family:Arial,sans-serif;box-sizing:border-box" placeholder="Dán API key vào đây...">
+    <button onclick="submitKey()" style="margin-top:4px;width:100%;font-size:8px;padding:3px;border:1px solid #efefef;background:#fff;cursor:pointer;color:#c8c8c8;font-family:Arial,sans-serif">Lưu & bắt đầu</button>`;
+  c.appendChild(d);
+}
+
+function submitKey(){
+  const k=(document.getElementById('key-inp')||{}).value||'';
+  if(!k.trim()) return;
+  saveKey(k.trim());
+  document.getElementById('chat-msgs').innerHTML='';
+  addMsg('a','✓ Key đã lưu! Hỏi về UDP, TCP, Socket, Multicast Java nhé.');
+  document.getElementById('chat-inp').focus();
+}
+
+function addMsg(role, text, cls){
+  const c = document.getElementById('chat-msgs');
+  const d = document.createElement('div');
+  d.className='cmsg '+role+(cls?' '+cls:'');
+  d.textContent=text;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+  return d;
+}
+
+async function sendChat(){
+  if(thinking) return;
+  if(!getKey()){ showKeyInput(); return; }
+  const inp = document.getElementById('chat-inp');
+  const msg = inp.value.trim();
+  if(!msg) return;
+  inp.value='';
+  addMsg('u', msg);
+  hist.push({role:'user', parts:[{text:msg}]});
+  thinking=true;
+  const w=addMsg('a','đang trả lời...','typing');
+  try{
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${getKey()}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        systemInstruction:{parts:[{text:SYS}]},
+        contents:hist,
+        generationConfig:{maxOutputTokens:4096,temperature:0.3}
+      })
+    });
+    const data=await r.json();
+    if(data.error) throw new Error(data.error.message);
+    const t=data.candidates[0].content.parts[0].text;
+    w.textContent=t;
+    w.classList.remove('typing');
+    hist.push({role:'model',parts:[{text:t}]});
+  }catch(e){
+    w.textContent='Lỗi: '+e.message+'\n(Kiểm tra API key — nhấn 🔑 để đổi key)';
+    w.classList.remove('typing');
+    hist.pop();
+  }
+  thinking=false;
+  document.getElementById('chat-msgs').scrollTop=9999;
+}
+
 function copyText(text){
   navigator.clipboard.writeText(text).then(()=>{
     const s=document.getElementById('status');
