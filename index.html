@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>#utf8:AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N-MA</title>
+<title>#utf8:AQ.</title>
 <style>
 .collapsed pre{display:none}
 
@@ -49,7 +49,7 @@ pre{margin:0;padding:4px;white-space:pre;overflow:auto;font:8px/1.2 Consolas,"Co
     <button onclick="expandAll()">Mở tất cả</button>
     <button onclick="collapseAll()">Thu gọn tất cả</button>
   </div>
-  <div class="note">Giao diện tối giản, nền trắng. Mỗi bài có nút sao chép riêng.</div>
+  <div class="note">#</div>
 
   <section class="card">
     <div class="card-head"><strong>1. UDP Client — udpclient.java</strong><button onclick="copyCode(this)">Sao chép</button></div>
@@ -228,7 +228,7 @@ public class udpMulticastServer {
 <div id="chat-btn" onclick="toggleChat()" title="Hỏi AI">💬</div>
 <div id="chat-panel">
   <div id="chat-head">
-    <span>UIA · AQ.Ab8RN6JxlGB6Nm0TzBPu2wgQGxWACaSgOG0BgoIjmZz1e2N/AQ.Ab8RN6JNGW-2fhRZNDxRUY3LfXZ2LM1pAkTM7lVKGeC7mLYp4w</span>
+    <span>UIA/AQ.Ab8RN6JNGW-2fhRZNDxRUY3LfXZ2LM1pAkTM7lVKGeC7mLYp4w</span>
     <span>
       <button onclick="showKeyInput()" title="Đổi API key" style="margin-right:2px">🔑</button>
       <button onclick="toggleChat()">✕</button>
@@ -257,7 +257,7 @@ function toggleChat(){
   if(chatOpen){
     if(!getKey()){ showKeyInput(); return; }
     document.getElementById('chat-inp').focus();
-    if(hist.length===0) addMsg('a','Xin chào! Hỏi về UDP, TCP, Socket, Multicast Java nhé.');
+    if(hist.length===0) addMsg('a','Xin chào.');
   }
 }
 
@@ -308,7 +308,7 @@ async function sendChat(){
   hist.push({role:'user', parts:[{text:msg}]});
   thinking = true;
 
-  const w = addMsg('a','đang trả lời...','typing');
+  const w = addMsg('a','...','typing');
 
   try{
     const apiKey = getKey().trim().replace(/^['"]|['"]$/g,'');
